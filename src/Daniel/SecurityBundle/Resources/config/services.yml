@@ -1,0 +1,4 @@
+services:
+#    daniel_security.example:
+#        class: Daniel\SecurityBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
