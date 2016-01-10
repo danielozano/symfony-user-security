@@ -36,7 +36,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="Daniel\SecurityBundle\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="This username is already in use")
  * @UniqueEntity(fields="email", message="This email is already in use")
  */
@@ -61,13 +60,17 @@ class User implements UserInterface, \Serializable
 	private $username;
 	/**
 	 * @ORM\Column(type="string", length=64)
-	 * @Assert\NotBlank()
 	 */
 	private $password;
 	/**
 	 * @ORM\Column(name="is_active", type="boolean")
 	 */
 	private $isActive;
+	/**
+	 * Atributo para tratar la contraseña, este no persistirá
+	 * en base de datos.
+	 */
+	private $plainPassword;
 
 	public function __construct()
 	{
@@ -229,4 +232,14 @@ class User implements UserInterface, \Serializable
     {
         return $this->isActive;
     }
+
+    public function setPlainPassword($plainPassword)
+    {
+    	$this->plainPassword = $plainPassword;
+    }
+    
+    public function getPlainPassword()
+	{
+		return $this->plainPassword;
+	}
 }

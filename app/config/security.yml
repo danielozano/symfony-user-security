@@ -1,7 +1,10 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
+    # añadir codificación bcrypt para nuestra entidad
+    encoders:
+        Daniel\SecurityBundle\Entity\User:
+            algorithm: bcrypt
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
