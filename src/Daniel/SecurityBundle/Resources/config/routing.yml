@@ -1,3 +1,6 @@
-daniel_security_homepage:
-    path:     /
-    defaults: { _controller: DanielSecurityBundle:Default:index }
+daniel_security_user_login:
+    path:     /user/login
+    defaults: { _controller: DanielSecurityBundle:User:login }
+daniel_security_user_register:
+    path: /user/register
+    defaults: { _controller: DanielSecurityBundle:User:register }
