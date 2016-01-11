@@ -13,7 +13,20 @@ class UserController extends Controller
 {
 	public function loginAction(Request $request)
 	{
-		return new Response('Login Action');
+		/**
+		 * obtener errores de intento de login, y el último username
+		 * utilizado para introducirlo en el formulario en caso de error
+		 */
+		$authenticationUtils = $this->get('security.authentication_utils');
+		$error = $authenticationUtils->getLastAuthenticationError();
+		$lastUsername = $authenticationUtils->getLastUsername();
+		return $this->render(
+			'DanielSecurityBundle:User:login.html.twig',
+			array(
+				'lastUsername'	=> $lastUsername,
+				'error'			=> $error,
+			)
+		);
 	}
 
 	public function registerAction(Request $request)
@@ -48,6 +61,7 @@ class UserController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($user);
 			$em->flush();
+			return $this->redirectToRoute('security_user_login');
 		}
 		return $this->render(
 			'DanielSecurityBundle:User:register.html.twig',
@@ -55,5 +69,15 @@ class UserController extends Controller
 				'form' => $form->createView(),
 			)
 		);
+	}
+
+	public function indexAction()
+	{
+		return $this->render('DanielSecurityBundle:Default:index.html.twig');
+	}
+
+	public function unsecureAction()
+	{
+		return $this->render('DanielSecurityBundle:Default:unsecure.html.twig');
 	}
 }

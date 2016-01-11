@@ -1,0 +1,22 @@
+{# Si hay un usuario logeado mostrar su información#}
+{% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+<div>
+	<p>
+		{{ app.user.username }} - {{ app.user.email }}
+		{% dump(app.user) %}
+	</p>
+</div>
+{% endif %}
+{# Si hay errores de intento de login mostrarlos #}
+{% if error %}
+	<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+<form action="{{ path('security_user_login_check') }}" method="POST">
+	<label for="username">Email</label>
+	<input type="text" name="_username">
+	<label for="password">Password</label>
+	<input type="password" name="_password">
+	<input type="hidden" name="_target_path" value="daniel_security_homepage" />
+	<button type="submit">Login</button>
+</form>
+<p>You dont have an user? <a href="{{ path('daniel_security_user_register') }}">Create an account</a></p>

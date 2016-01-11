@@ -1,0 +1,10 @@
+You are logged in:
+{% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+<div>
+	<p>
+		{{ app.user.username }} - {{ app.user.email }}
+		{% dump(app.user) %}
+	</p>
+</div>
+{% endif %}
+<p>You can <a href="{{ path('logout') }}">logout</a></p>

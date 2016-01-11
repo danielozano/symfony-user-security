@@ -1,1 +1,10 @@
-Hello World!
+{% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+<p>
+	You are logged in you can visit a <a href="{{ path('daniel_security_unsecured') }}">private area</a>
+</p>
+{% else %}
+	<p>
+		You are not logged in but you can try to visit a <a href="{{ path('daniel_security_unsecured') }}">private area</a>
+	</p>
+{% endif %}
+
